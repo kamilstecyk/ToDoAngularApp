@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3" id="todo-form-wrapper">
@@ -20,14 +21,14 @@
                     <div class="col-md-4">
                         <!-- To do part -->
                         <div class="example-container todos">
-                            <h2 class="head-title">To do <span *ngIf="this.tasks.length > 0">(<span class="primary-color">{{tasks.length}}</span>)</span></h2>
+                            <h2 class="head-title">To do <span *ngIf="this.userTodos.length > 0">(<span class="primary-color">{{this.userTodos.length}}</span>)</span></h2>
                         
                             <div
                               cdkDropList
-                              [cdkDropListData]="tasks"
+                              [cdkDropListData]="this.userTodos"
                               class="example-list"
                               (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of tasks; let i = index;" cdkDrag>{{item.description}}
+                              <div class="example-box" *ngFor="let item of this.userTodos; let i = index;" cdkDrag>{{item}}
                                 <div class="box">
                                         <button mat-icon-button color="warn" (click)="deleteTask(i, KindOfTodos.ToDo)"><mat-icon>delete</mat-icon></button>
                                         <button mat-icon-button color="primary" (click)="onEdit(item, i)"><mat-icon>edit</mat-icon></button>
@@ -40,14 +41,14 @@
                     <div class="col-md-4">
                         <!-- In progress part -->
                         <div class="example-container todos">
-                            <h2 class="head-title">In progress <span *ngIf="this.inProgress.length > 0">(<span class="primary-color">{{this.inProgress.length}}</span>)</span></h2>
+                            <h2 class="head-title">In progress <span *ngIf="this.userInProgressTodos.length > 0">(<span class="primary-color">{{this.userInProgressTodos.length}}</span>)</span></h2>
                         
                             <div
                               cdkDropList
-                              [cdkDropListData]="inProgress"
+                              [cdkDropListData]="userInProgressTodos"
                               class="example-list"
                               (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of inProgress;let i = index;" cdkDrag>{{item.description}}
+                              <div class="example-box" *ngFor="let item of userInProgressTodos;let i = index;" cdkDrag>{{item}}
                                 <div class="box">
                                     <button mat-icon-button color="warn" (click)="deleteTask(i, KindOfTodos.InProgress)"><mat-icon>delete</mat-icon></button>
                                 </div>
@@ -56,16 +57,16 @@
                           </div>
                     </div>
                     <div class="col-md-4">
-                        <!-- done -->
+                        <!-- userDoneTodos -->
                         <div class="example-container todos">
-                            <h2 class="head-title">Done <span *ngIf="this.done.length > 0">(<span class="primary-color">{{this.done.length}}</span>)</span></h2>
+                            <h2 class="head-title">Done <span *ngIf="this.userDoneTodos.length > 0">(<span class="primary-color">{{this.userDoneTodos.length}}</span>)</span></h2>
                         
                             <div
                               cdkDropList
-                              [cdkDropListData]="done"
+                              [cdkDropListData]="userDoneTodos"
                               class="example-list"
                               (cdkDropListDropped)="drop($event)">
-                              <div class="example-box" *ngFor="let item of done; let i = index;" cdkDrag>{{item.description}}
+                              <div class="example-box" *ngFor="let item of userDoneTodos; let i = index;" cdkDrag>{{item}}
                                 <div class="box">
                                     <button mat-icon-button color="warn" (click)="deleteTask(i, KindOfTodos.Done)"><mat-icon>delete</mat-icon></button>
                                     <button mat-icon-button color="accent"><mat-icon>check_circle</mat-icon></button>

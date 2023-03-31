@@ -1,8 +1,8 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Component, OnInit } from '@angular/core'
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
-import { ITask } from 'src/app/model/ITask'
 import { KindOfTodos } from 'src/app/model/KindOfTodos'
+import { TodosService } from 'src/app/services/todos.service'
 
 @Component({
   selector: 'app-todo',
@@ -12,13 +12,16 @@ import { KindOfTodos } from 'src/app/model/KindOfTodos'
 export class TodoComponent implements OnInit {
   KindOfTodos = KindOfTodos
   todoForm !: FormGroup
-  tasks: ITask[] = []
-  inProgress: ITask[] = []
-  done: ITask[] = []
   updateId !: any
   isEditEnabled: boolean = false
 
-  constructor(private fb : FormBuilder){}
+  userTodos : string[] = []
+  userInProgressTodos : string[] = []
+  userDoneTodos : string[] = []
+  userEmail : string = "kamils987@interia.eu"
+  userNotFouund = false
+
+  constructor(private fb : FormBuilder, private todoService : TodosService ){}
 
   ngOnInit(): void {
       this.todoForm = this.fb.group(
@@ -26,25 +29,62 @@ export class TodoComponent implements OnInit {
           item : ['', Validators.required]
         }
       )
+
+      this.fetchAllUserTodos()
   }
 
-  onEdit(item: ITask, i:number){
-    this.todoForm.controls['item'].setValue(item.description)
+  // TODO change email 
+  fetchAllUserTodos(){
+    this.todoService.getUserTodos(this.userEmail).subscribe(
+    (data) => {
+      console.log("Loaded all user Todos")
+      this.userTodos = data.todos
+      this.userInProgressTodos = data.inProgress
+      this.userDoneTodos = data.done
+      this.userNotFouund = false
+    },
+    error => {
+      console.log("User does not have Todos.. Cannot load")
+      console.log(error.message)
+      this.userNotFouund = true
+    })
+  }
+
+  onEdit(item: string, i:number){
+    this.todoForm.controls['item'].setValue(item)
     this.updateId = i
     this.isEditEnabled = true
   }
 
   addTask(){
-    this.tasks.push({
-      description: this.todoForm.value.item,
-      done: false
-    })
+    this.userTodos.push(
+      this.todoForm.value.item
+    )
+
+    // we update existing record
+    if(!this.userNotFouund){
+      this.todoService.updateUserRecord(this.userEmail, { "todos" : this.userTodos }).subscribe((data) => {
+        console.log("Added user todo with updated user record")
+      })
+    }
+    else{
+      this.todoService.addUserRecord({id : this.userEmail,
+        todos : [],
+        inProgress : [],
+        done : []}).subscribe((data) => {
+          console.log("Added new user record")
+        })
+    }
+
     this.todoForm.reset()
   }
 
   updateTask(){
-    this.tasks[this.updateId].description = this.todoForm.value.item
-    this.tasks[this.updateId].done = false
+    this.userTodos[this.updateId] = this.todoForm.value.item
+    this.todoService.updateUserRecord(this.userEmail, { "todos" : this.userTodos }).subscribe((data) => {
+      console.log("Updated user todos record with updated values")
+    })
+
     this.todoForm.reset()
     this.updateId = undefined
     this.isEditEnabled = false
@@ -54,18 +94,22 @@ export class TodoComponent implements OnInit {
     switch (kindOfTodo)
     {
       case KindOfTodos.ToDo:
-        this.tasks.splice(index,1)
+        this.userTodos.splice(index,1)
         break
       case KindOfTodos.InProgress:
-        this.inProgress.splice(index,1)
+        this.userInProgressTodos.splice(index,1)
         break
       case KindOfTodos.Done:
-        this.done.splice(index,1)
+        this.userDoneTodos.splice(index,1)
         break
     }
+
+    this.todoService.updateUserRecord(this.userEmail, { "todos" : this.userTodos , "inProgress" : this.userInProgressTodos, "done" : this.userDoneTodos}).subscribe((data) => {
+      console.log("Updated user all todos")
+    })
   }
 
-  drop(event: CdkDragDrop<ITask[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
     } else {
@@ -75,10 +119,10 @@ export class TodoComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       )
-      // Here we have index of list which we drag to 
-      console.log(event)
-      let idOfTargetedList = Number(event.container.id.split('-')[3])
-      console.log("Target list: ", idOfTargetedList)
     }
+
+    this.todoService.updateUserRecord(this.userEmail, { "todos" : this.userTodos , "inProgress" : this.userInProgressTodos, "done" : this.userDoneTodos}).subscribe((data) => {
+      console.log("Updated user all todos")
+    })
   }
 }

@@ -1,0 +1,26 @@
+{
+  "usersTodos": [
+    {
+      "id": "kamils987@interia.eu",
+      "todos": [],
+      "inProgress": [],
+      "done": [
+        "dasdsa",
+        "pójdz do martynki"
+      ],
+      "{todos": "",
+      "{": "",
+      "{\"todos\" : [\"nowy todo\"]}": "",
+      "{ todos : [nowy todo]}": "",
+      "{ \"todos\" : [\"nowy todo\" , \"drugi todo\"]}": "",
+      "{\"User\": \"Leo\", \"Id\": 1}": "",
+      "{\"new\": \"value\"}": ""
+    },
+    {
+      "id": "kamils987@interia.pl",
+      "todos": [],
+      "inProgress": [],
+      "done": []
+    }
+  ]
+}
