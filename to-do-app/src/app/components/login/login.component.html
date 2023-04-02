@@ -17,11 +17,15 @@
                             <input type="password" matInput formControlName="password">
                         </mat-form-field>
                         <button type="submit" class="w-50 p-4" mat-raised-button color="primary">LOG IN</button>
+                        
                     </form>
-                    <div class="d-flex justify-content-center mt-5 mt-md-4">
+                    <div class="d-flex justify-content-center mt-3 mt-md-4">
                         <h3>Don't have an account?</h3>
                         <button class="ms-md-3 pb-1" mat-stroked-button color="primary" [routerLink]="['/register']">CREATE NEW</button>
                     </div>
+
+                    <button type="button" class="w-50 p-4 mb-2 mt-md-4" mat-raised-button color="accent" (click)="authService.GoogleAuth()"><img src="../../../assets/google.svg" alt="Google icon" class="p-1"/>
+                        Log in with Google</button>
                 </div>
                 <div class="col-md-6 d-flex justify-content-center align-items-center text-center p-2">
                     <div class="w-75">

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { KindOfTodos } from 'src/app/model/KindOfTodos'
 import { TodosService } from 'src/app/services/todos.service'
+import { AuthService } from 'src/app/shared/services/auth.service'
 
 @Component({
   selector: 'app-todo',
@@ -21,9 +22,11 @@ export class TodoComponent implements OnInit {
   userEmail : string = "kamils987@interia.eu"
   userNotFouund = false
 
-  constructor(private fb : FormBuilder, private todoService : TodosService ){}
+  constructor(private fb : FormBuilder, private todoService : TodosService, private authService: AuthService ){}
 
   ngOnInit(): void {
+      this.userEmail = this.authService.loggedInUserEmail()
+
       this.todoForm = this.fb.group(
         {
           item : ['', Validators.required]

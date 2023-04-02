@@ -19,7 +19,10 @@ import { TodosService } from './services/todos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { firebaseConfig } from './environment'
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AuthService } from './shared/services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,9 +44,10 @@ import { RegisterComponent } from './components/register/register.component';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
-  providers: [TodosService],
+  providers: [TodosService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

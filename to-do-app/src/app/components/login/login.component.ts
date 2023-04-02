@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl, FormControlName, ValidationErrors } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth.service';
 declare let alertify: any;
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ declare let alertify: any;
 export class LoginComponent implements OnInit{
   loginForm!: FormGroup
 
-  constructor(private fb : FormBuilder){}
+  constructor(private fb : FormBuilder,public authService : AuthService){}
 
   ngOnInit(): void {
       this.loginForm = this.fb.group({
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit{
       console.log("Valid form")
       console.log(this.loginForm.value.email)
       console.log(this.loginForm.value.password)
+      this.authService.SignIn(this.loginForm.value.email, this.loginForm.value.password)
     }
     else{
       this.getFormValidationErrors();

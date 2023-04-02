@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
 import { matchValidator } from '../../helpers/form-validators'
+import { AuthService } from 'src/app/shared/services/auth.service';
 declare let alertify: any;
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ declare let alertify: any;
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup
 
-  constructor(private fb : FormBuilder){}
+  constructor(private fb : FormBuilder, private authService : AuthService){}
 
   ngOnInit(): void {
       this.registerForm = this.fb.group({
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
       console.log(this.registerForm.value.email)
       console.log(this.registerForm.value.password)
       console.log(this.registerForm.value.repeatedPassword)
+      this.authService.SignUp(this.registerForm.value.email, this.registerForm.value.password)
     }
     else{
       this.getFormValidationErrors();

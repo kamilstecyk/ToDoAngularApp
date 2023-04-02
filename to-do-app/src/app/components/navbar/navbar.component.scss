@@ -3,3 +3,13 @@ mat-toolbar{
     color: white;
 }
 
+#logoutField{
+    transition: 0.25s ease-in-out all;
+    margin-left: auto; color: white; 
+    text-decoration: none;
+
+    &:hover{
+        transform: translateY(-5%);
+        letter-spacing: 3px;
+    }
+}
