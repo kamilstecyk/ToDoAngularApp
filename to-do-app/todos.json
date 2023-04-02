@@ -21,6 +21,16 @@
       "todos": [],
       "inProgress": [],
       "done": []
+    },
+    {
+      "id": "lukaszsuch69@gmail.com",
+      "todos": [],
+      "inProgress": [
+        "Zrób obiad"
+      ],
+      "done": [
+        "zrób kolację"
+      ]
     }
   ]
 }

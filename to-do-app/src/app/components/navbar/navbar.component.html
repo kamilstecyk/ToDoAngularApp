@@ -1,9 +1,12 @@
 
 <mat-toolbar>
     <h1 class="ps-3 pt-3">Your To-Do List</h1>
-    <a (click)="authService.SignOut()" href="" id="logoutField">
-        Logout 
-        <img src="../../../assets/box-arrow-right.svg" alt="logout icon" style="margin-left: 5px; filter: invert(100%);" />
-    </a>
+    <div class="d-flex flex-column justify-content-center align-items-center" id="logoutField">
+        <h4>{{authService.loggedInUserEmail()}}</h4>
+        <a (click)="authService.SignOut()" href="">
+            Logout 
+         <img src="../../../assets/box-arrow-right.svg" alt="logout icon" style="margin-left: 5px; filter: invert(100%);" />
+        </a>
+    </div>
 </mat-toolbar>
   

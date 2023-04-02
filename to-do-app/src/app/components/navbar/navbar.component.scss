@@ -5,11 +5,50 @@ mat-toolbar{
 
 #logoutField{
     transition: 0.25s ease-in-out all;
-    margin-left: auto; color: white; 
-    text-decoration: none;
+    margin-left: auto; 
+    gap: 0px;
+
+    a{
+        text-decoration: none;
+        color: white; 
+        margin: 0;
+    }
+
+    h4{
+        margin: 0;
+    }
 
     &:hover{
         transform: translateY(-5%);
         letter-spacing: 3px;
     }
+}
+
+@media all and (max-width: 600px){
+    #logoutField{
+        h4{
+            font-size: 0.75rem;
+        }
+    }
+}
+
+
+@media all and (max-width: 300px){
+    mat-toolbar{
+        display: flex!important;
+        flex-direction: column!important;
+        justify-content: center;
+        align-items: center;
+        height: 20vh!important;
+        text-align: center;
+
+        h1{
+            width: 100%
+        }
+        div{
+            width: 100%;
+        }
+
+    }
+
 }

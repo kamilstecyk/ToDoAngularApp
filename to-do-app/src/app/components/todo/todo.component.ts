@@ -77,6 +77,7 @@ export class TodoComponent implements OnInit {
         done : []}).subscribe((data) => {
           console.log("Added new user record")
         })
+        this.userNotFouund = false
     }
 
     this.todoForm.reset()
