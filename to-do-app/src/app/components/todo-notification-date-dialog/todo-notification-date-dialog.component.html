@@ -1,0 +1,22 @@
+    <h1 mat-dialog-title>{{data}}</h1>
+    <div mat-dialog-content>
+        <p>Pick the date and time to notify you by email</p>
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input type="datetime-local" matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="this.chosenDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+        <mat-form-field>
+            <input matInput [ngxMatDatetimePicker]="$any(picker)" placeholder="Choose a date"
+               [min]="minDate" [(ngModel)]="this.chosenDate" name="datetimeInput">
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker [stepMinute]="5" [showSeconds]="false" [defaultTime]="defaultTime">
+            </ngx-mat-datetime-picker>
+         </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onCloseClick()">Cancel</button>
+        <button [disabled]="this.chosenDate == undefined" mat-button [mat-dialog-close]="this.chosenDate" cdkFocusInitial>Ok</button>
+    </div>

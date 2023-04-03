@@ -24,10 +24,11 @@
     },
     {
       "id": "lukaszsuch69@gmail.com",
-      "todos": [],
-      "inProgress": [
-        "Zrób obiad"
+      "todos": [
+        "dsadsad",
+        "ala ma kota"
       ],
+      "inProgress": [],
       "done": [
         "zrób kolację"
       ]

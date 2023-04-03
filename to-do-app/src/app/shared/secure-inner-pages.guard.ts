@@ -15,7 +15,7 @@ export class SecureInnerPagesGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
       if(this.authService.isLoggedIn){
-        window.alert('Access denied, you are logged yet!')
+        // window.alert('Access denied, you are logged yet!')
         this.router.navigate(['/todos'])
       }
 
