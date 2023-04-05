@@ -6,6 +6,7 @@ import { KindOfTodos } from 'src/app/model/KindOfTodos'
 import { TodosService } from 'src/app/services/todos.service'
 import { AuthService } from 'src/app/shared/services/auth.service'
 import { TodoNotificationDateDialogComponent } from '../todo-notification-date-dialog/todo-notification-date-dialog.component'
+import { NotificationsService } from 'src/app/services/notifications.service'
 
 declare let alertify: any
 
@@ -26,7 +27,7 @@ export class TodoComponent implements OnInit {
   userEmail!: string 
   userNotFouund = false
 
-  constructor(private fb : FormBuilder, private todoService : TodosService, private authService: AuthService, public dialog: MatDialog){}
+  constructor(private fb : FormBuilder, private todoService : TodosService, private authService: AuthService, public dialog: MatDialog, private notificationsService: NotificationsService){}
 
   ngOnInit(): void {
       this.userEmail = this.authService.loggedInUserEmail()
@@ -162,7 +163,8 @@ export class TodoComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result)
       if(result != undefined){
-        window.alert("Send notify to service")
+        const notificationTimestamp = Date.parse(result)
+        this.notificationsService.addNotification(this.userEmail, todo, notificationTimestamp)
       }
     })
   }

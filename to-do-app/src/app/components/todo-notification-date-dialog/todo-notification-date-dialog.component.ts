@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class TodoNotificationDateDialogComponent {
   minDate: Date = new Date()
   chosenDate: any 
-  defaultTime: [number, number, number] = [this.minDate.getDate(), this.minDate.getMinutes() + 5, this.minDate.getSeconds()]
+  defaultTime: [number, number, number] = [this.minDate.getHours(), this.minDate.getMinutes() + 5, this.minDate.getSeconds()]
 
   constructor(
     public dialogRef: MatDialogRef<TodoNotificationDateDialogComponent>,

@@ -24,6 +24,10 @@ export class TodosService {
     return this.http.patch(this.urlTodos + email, updatedData)
   }
 
+  updateUserTodoNotification(email: string, notificationTimestamp: Number): Observable<any>{
+    return this.http.patch(this.urlTodos + email, {notificationTimestamp: notificationTimestamp})
+  }
+
   addUserRecord(newData : any){
     return this.http.post(this.urlTodos, newData)
   }
