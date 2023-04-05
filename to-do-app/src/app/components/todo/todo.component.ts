@@ -164,7 +164,8 @@ export class TodoComponent implements OnInit {
       console.log(result)
       if(result != undefined){
         const notificationTimestamp = Date.parse(result)
-        this.notificationsService.addNotification(this.userEmail, todo, notificationTimestamp)
+        const messageToSend = "do " + todo + " now!"
+        this.notificationsService.addNotification(this.userEmail, messageToSend, notificationTimestamp)
       }
     })
   }
