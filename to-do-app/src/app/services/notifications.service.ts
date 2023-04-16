@@ -6,8 +6,8 @@ declare let alertify: any
   providedIn: 'root'
 })
 export class NotificationsService {
-  // url: string = 'https://notification-app-production.up.railway.app/sendEmailv2'
-  url: string = 'http://localhost:5000/sendEmailv2'
+  url: string = 'https://notification-app-production.up.railway.app/sendEmailv2'
+  // url: string = 'http://localhost:5000/sendEmailv2'
 
   constructor(private http: HttpClient) { }
 
